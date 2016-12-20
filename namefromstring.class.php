@@ -4,7 +4,7 @@
  * Extracts person's real name from an email string.
  * Replaces an earlier package <https://github.com/peterkahl/name-extractor>.
  *
- * @version    0.2 (2016-12-20)
+ * @version    0.2.1 (2016-12-20 09:25:00 GMT)
  * @author     Peter Kahl <peter.kahl@colossalmind.com>
  * @since      2012
  * @copyright  2012-2016 Peter Kahl
@@ -117,7 +117,7 @@ class namefromstring {
       }
       $new[] = $this->ucfirst_words($frag);
     }
-    return implode($new);
+    return implode(' ', $new);
   }
 
   #-------------------------------------------------------------------
