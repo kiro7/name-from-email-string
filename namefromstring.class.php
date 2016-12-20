@@ -32,75 +32,75 @@ class namefromstring {
 
   private $dictArray;
 
-	private $common = array(
-		'abuse'          => 'Abuse',
-		'noreply'        => 'No Reply',
-		'donotreply'     => 'No Reply',
-		'dontreply'      => 'No Reply',
-		'nobody'         => 'Nobody',
-		'test'           => 'Test',
-		'orderupdate'    => 'Order Update',
-		'orderstatus'    => 'Order Status',
-		'status'         => 'Status',
-		'sales'          => 'Sales',
-		'billing'        => 'Billing',
-		'receipt'        => 'Receipt',
-		'invoice'        => 'Invoice',
-		'confirm'        => 'Confirm',
-		'confirmation'   => 'Confirmation',
-		'verify'         => 'Verify',
-		'verification'   => 'Verification',
-		'bounce'         => 'Bounce',
-		'support'        => 'Support',
-		'wwwdata'        => 'www-data',
-		'apache'         => 'Apache',
-		'cron'           => 'Crontab',
-		'mailerdaemon'   => 'Mailer Daemon',
-		'info'           => 'Info',
-		'enquiry'        => 'Enquiry',
-		'inquiry'        => 'Inquiry',
-		'admin'          => 'Administrator',
-		'administrator'  => 'Administrator',
-		'postmaster'     => 'Postmaster',
-		'webmaster'      => 'Webmaster',
-		'office'         => 'Office',
-		'helpdesk'       => 'Help Desk',
-		'careers'        => 'Careers',
-		'jobs'           => 'Jobs',
-		'cv'             => 'CV',
-		'employment'     => 'Employment',
-		'feedback'       => 'Feedback',
-		'marketing'      => 'Marketing',
-	);
+  private $common = array(
+    'abuse'          => 'Abuse',
+    'noreply'        => 'No Reply',
+    'donotreply'     => 'No Reply',
+    'dontreply'      => 'No Reply',
+    'nobody'         => 'Nobody',
+    'test'           => 'Test',
+    'orderupdate'    => 'Order Update',
+    'orderstatus'    => 'Order Status',
+    'status'         => 'Status',
+    'sales'          => 'Sales',
+    'billing'        => 'Billing',
+    'receipt'        => 'Receipt',
+    'invoice'        => 'Invoice',
+    'confirm'        => 'Confirm',
+    'confirmation'   => 'Confirmation',
+    'verify'         => 'Verify',
+    'verification'   => 'Verification',
+    'bounce'         => 'Bounce',
+    'support'        => 'Support',
+    'wwwdata'        => 'www-data',
+    'apache'         => 'Apache',
+    'cron'           => 'Crontab',
+    'mailerdaemon'   => 'Mailer Daemon',
+    'info'           => 'Info',
+    'enquiry'        => 'Enquiry',
+    'inquiry'        => 'Inquiry',
+    'admin'          => 'Administrator',
+    'administrator'  => 'Administrator',
+    'postmaster'     => 'Postmaster',
+    'webmaster'      => 'Webmaster',
+    'office'         => 'Office',
+    'helpdesk'       => 'Help Desk',
+    'careers'        => 'Careers',
+    'jobs'           => 'Jobs',
+    'cv'             => 'CV',
+    'employment'     => 'Employment',
+    'feedback'       => 'Feedback',
+    'marketing'      => 'Marketing',
+  );
 
   #-------------------------------------------------------------------
 
   public function get_name($str) {
     $str = $this->resetExplode('@', strtolower($str));
-		#---------------------------------------
-		$test = str_replace('-', '', $str);
-		if (array_key_exists($test, $this->common)) {
-			return $this->common[$test];
-		}
-		#---------------------------------------
-		if (strpos($str, '.') !== false) { # john.brown
-			$str = explode('.', $str);
-			return $this->ucfirst_words($str);
-		}
-		#---------------------------------------
-		if (strpos($str, '_') !== false) { # john_brown
-			$str = explode('_', $str);
-			return $this->ucfirst_words($str);
-		}
-		#---------------------------------------
-		if (strpos($str, '-') !== false) { # no-reply
-			$str = explode('-', $str);
-			return $this->ucfirst_words($str);
-		}
-		#---------------------------------------
+    #---------------------------------------
+    $test = str_replace('-', '', $str);
+    if (array_key_exists($test, $this->common)) {
+      return $this->common[$test];
+    }
+    #---------------------------------------
+    if (strpos($str, '.') !== false) { # john.brown
+      $str = explode('.', $str);
+      return $this->ucfirst_words($str);
+    }
+    #---------------------------------------
+    if (strpos($str, '_') !== false) { # john_brown
+      $str = explode('_', $str);
+      return $this->ucfirst_words($str);
+    }
+    #---------------------------------------
+    if (strpos($str, '-') !== false) { # no-reply
+      $str = explode('-', $str);
+      return $this->ucfirst_words($str);
+    }
+    #---------------------------------------
     $str = str_replace('+', ' ', $str);
     $str = preg_replace('/\ +/', ' ', $str);
-		#---------------------------------------
+    #---------------------------------------
     $new = preg_replace('/\d+/', ' ', $str);
     $new = trim($new);
     if (empty($new)) {
@@ -197,14 +197,14 @@ class namefromstring {
 
   /**
    * Accepts @arg array or string
-	 *
+   *
    */
   private function ucfirst_words($str) {
-		if (is_array($str)) {
-			$str = implode(' ', $str);
-		}
-		return ucwords($str);
-	}
+    if (is_array($str)) {
+      $str = implode(' ', $str);
+    }
+    return ucwords($str);
+  }
 
   #-------------------------------------------------------------------
 
