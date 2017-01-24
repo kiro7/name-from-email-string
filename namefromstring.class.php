@@ -1,17 +1,15 @@
 <?php
 /**
  * NAME FROM STRING
- * Extracts person's real name from an email string.
+ * Extracts person's real name from an email (or any) string.
  * Replaces an earlier package <https://github.com/peterkahl/name-extractor>.
  *
- * @version    0.2.2 (2016-12-21 23:01:00 GMT)
+ * @version    0.3 (2017-01-24 07:36:00 GMT)
  * @author     Peter Kahl <peter.kahl@colossalmind.com>
  * @since      2012
- * @copyright  2012-2016 Peter Kahl
  * @license    Apache License, Version 2.0
  *
- *
- * Copyright 2012-2016 Peter Kahl <peter.kahl@colossalmind.com>
+ * Copyright 2012-2017 Peter Kahl <peter.kahl@colossalmind.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,13 +24,19 @@
  * limitations under the License.
  */
 
-class namefromstring {
+class nameFromString {
 
-  public $longest_name = 14;
+  const VERSION = '0.3';
 
-  private $dictArray;
+  /**
+   * The longest resulting substring (we want to get)
+   * @var integer
+   */
+  private static $longestName = 14;
 
-  private $common = array(
+  private static $dictArray;
+
+  private static $commonName = array(
     'abuse'          => 'Abuse',
     'noreply'        => 'No Reply',
     'donotreply'     => 'No Reply',
@@ -63,6 +67,7 @@ class namefromstring {
     'administrator'  => 'Administrator',
     'postmaster'     => 'Postmaster',
     'webmaster'      => 'Webmaster',
+    'root'           => 'Root',
     'office'         => 'Office',
     'helpdesk'       => 'Help Desk',
     'careers'        => 'Careers',
@@ -73,29 +78,29 @@ class namefromstring {
     'marketing'      => 'Marketing',
   );
 
-  #-------------------------------------------------------------------
+  #===================================================================
 
-  public function get_name($str) {
-    $str = $this->resetExplode('@', strtolower($str));
+  public static function getName($str) {
+    $str = self::resetExplode('@', strtolower($str));
     #---------------------------------------
     $test = str_replace('-', '', $str);
-    if (array_key_exists($test, $this->common)) {
-      return $this->common[$test];
+    if (array_key_exists($test, self::$commonName)) {
+      return self::$commonName[$test];
     }
     #---------------------------------------
     if (strpos($str, '.') !== false) { # john.brown
       $str = explode('.', $str);
-      return $this->ucfirst_words($str);
+      return self::ucfirst_words($str);
     }
     #---------------------------------------
     if (strpos($str, '_') !== false) { # john_brown
       $str = explode('_', $str);
-      return $this->ucfirst_words($str);
+      return self::ucfirst_words($str);
     }
     #---------------------------------------
     if (strpos($str, '-') !== false) { # no-reply
       $str = explode('-', $str);
-      return $this->ucfirst_words($str);
+      return self::ucfirst_words($str);
     }
     #---------------------------------------
     $str = str_replace('+', ' ', $str);
@@ -107,31 +112,31 @@ class namefromstring {
       $new = $str;
     }
     if (strlen($new) < 4) {
-      return $this->ucfirst_words($new);
+      return self::ucfirst_words($new);
     }
     $nameArr = explode(' ', $new);
     $new = array();
     foreach ($nameArr as $frag) {
       if (strlen($frag) > 2) {
-        $frag = $this->breakString($frag);
+        $frag = self::breakString($frag);
       }
-      $new[] = $this->ucfirst_words($frag);
+      $new[] = self::ucfirst_words($frag);
     }
     return implode(' ', $new);
   }
 
-  #-------------------------------------------------------------------
+  #===================================================================
 
-  private function breakString($str) {
-    $this->load_dictionary();
+  private static function breakString($str) {
+    self::load_dictionary();
     $wc = 0; # counts segmented words
     #----
     $str_length = strlen($str);
-    if ($str_length < $this->longest_name) {
+    if ($str_length < self::$longestName) {
       $maxlen = $str_length;
     }
     else {
-      $maxlen = $this->longest_name;
+      $maxlen = self::$longestName;
     }
     # $n .... position (index)
     for ($n = 0; $n < $str_length; ) {
@@ -144,7 +149,7 @@ class namefromstring {
       while ($m <= $maxlen && ($n+$m) < $str_length) {
         $test .= substr($str, $n+$m, 1); # append 1 character
         # try to find the word in dictionary
-        if (array_key_exists($test, $this->dictArray)) {
+        if (array_key_exists($test, self::$dictArray)) {
           $word[$wc] = $test; # because word test exists
           $k = $m;
           $found = true;
@@ -182,33 +187,33 @@ class namefromstring {
     return implode(' ', $new); # string
   }
 
-  #-------------------------------------------------------------------
+  #===================================================================
 
-  private function load_dictionary() {
-    if (!empty($this->dictArray)) {
+  private static function load_dictionary() {
+    if (!empty(self::$dictArray)) {
       return;
     }
     require __DIR__.'/dictionary-names.php';
-    $this->dictArray = array_flip($dict); # speed trick
+    self::$dictArray = array_flip($dict); # speed trick
     $dict = array();
   }
 
-  #-------------------------------------------------------------------
+  #===================================================================
 
   /**
    * Accepts @arg array or string
    *
    */
-  private function ucfirst_words($str) {
+  private static function ucfirst_words($str) {
     if (is_array($str)) {
       $str = implode(' ', $str);
     }
     return ucwords($str);
   }
 
-  #-------------------------------------------------------------------
+  #===================================================================
 
-  private function resetExplode($glue, $str) {
+  private static function resetExplode($glue, $str) {
     if (strpos($str, $glue) === false) {
       return $str;
     }
@@ -217,7 +222,5 @@ class namefromstring {
     return $str;
   }
 
-  #-------------------------------------------------------------------
-
+  #===================================================================
 }
-
