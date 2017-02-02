@@ -4,7 +4,7 @@
  * Extracts person's real name from an email (or any) string.
  * Replaces an earlier package <https://github.com/peterkahl/name-extractor>.
  *
- * @version    0.3 (2017-01-24 07:36:00 GMT)
+ * @version    0.4 (2017-02-03 22:31:00 GMT)
  * @author     Peter Kahl <peter.kahl@colossalmind.com>
  * @since      2012
  * @license    Apache License, Version 2.0
@@ -26,13 +26,19 @@
 
 class nameFromString {
 
-  const VERSION = '0.3';
+  const VERSION = '0.4';
 
   /**
    * The longest resulting substring (we want to get)
    * @var integer
    */
-  private static $longestName = 14;
+  const LONGESTNAME = 14;
+
+  /**
+   * Filename of dictionary
+   * @var string
+   */
+  const FILENAMEDICT = '/dictionary-names.php';
 
   private static $dictArray;
 
@@ -132,11 +138,11 @@ class nameFromString {
     $wc = 0; # counts segmented words
     #----
     $str_length = strlen($str);
-    if ($str_length < self::$longestName) {
+    if ($str_length < self::LONGESTNAME) {
       $maxlen = $str_length;
     }
     else {
-      $maxlen = self::$longestName;
+      $maxlen = self::LONGESTNAME;
     }
     # $n .... position (index)
     for ($n = 0; $n < $str_length; ) {
@@ -193,7 +199,7 @@ class nameFromString {
     if (!empty(self::$dictArray)) {
       return;
     }
-    require __DIR__.'/dictionary-names.php';
+    require __DIR__.self::FILENAMEDICT;
     self::$dictArray = array_flip($dict); # speed trick
     $dict = array();
   }
