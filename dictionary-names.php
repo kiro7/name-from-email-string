@@ -4,7 +4,7 @@
  * Extracts person's real name from an email (or any) string.
  * Replaces an earlier package <https://github.com/peterkahl/name-extractor>.
  *
- * @version    0.3 (2017-01-24 07:36:00 GMT)
+ * @version    0.4 (2017-04-03 09:35:00 GMT)
  * @author     Peter Kahl <peter.kahl@colossalmind.com>
  * @since      2012
  * @license    Apache License, Version 2.0
@@ -309,6 +309,8 @@ $dict = array(
   "corazon",
   "cortez",
   "cory",
+  "cosimo",
+  "cosmo",
   "cote",
   "cotton",
   "cox",
