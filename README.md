@@ -6,7 +6,7 @@ This package replaces an earlier version found at <https://github.com/peterkahl/
 ## Usage
 
 ```php
-require __DIR__.'/namefromstring.class.php';
+use nameFromString\nameFromString;
 
 $email = 'johnbutterworth@genius.whatever';
 

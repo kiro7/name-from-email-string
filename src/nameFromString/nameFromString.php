@@ -4,7 +4,7 @@
  * Extracts person's real name from an email (or any) string.
  * Replaces an earlier package <https://github.com/peterkahl/name-extractor>.
  *
- * @version    0.4 (2017-02-03 22:31:00 GMT)
+ * @version    0.5 (2017-04-10 00:43:00 GMT)
  * @author     Peter Kahl <peter.kahl@colossalmind.com>
  * @since      2012
  * @license    Apache License, Version 2.0
@@ -24,9 +24,11 @@
  * limitations under the License.
  */
 
+namespace nameFromString;
+
 class nameFromString {
 
-  const VERSION = '0.4';
+  const VERSION = '0.5';
 
   /**
    * The longest resulting substring (we want to get)
