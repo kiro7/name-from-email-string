@@ -1,5 +1,5 @@
 {
-    "name": "colossalmind/name-from-email-string",
+    "name": "peterkahl/name-from-email-string",
     "description": "Extracts person's real name from (email) string.",
     "homepage": "https://github.com/peterkahl/name-from-email-string",
     "license": "Apache License Version 2.0",
