@@ -24,7 +24,7 @@
  * limitations under the License.
  */
 
-namespace nameFromString;
+namespace peterkahl\nameFromString;
 
 class nameFromString {
 

@@ -1,12 +1,10 @@
 # Name From Email String
 Extracts person's real name from an email (or any) string.
 
-This package replaces an earlier version found at <https://github.com/peterkahl/name-extractor>.
-
 ## Usage
 
 ```php
-use nameFromString\nameFromString;
+use peterkahl\nameFromString\nameFromString;
 
 $email = 'johnbutterworth@genius.whatever';
 
